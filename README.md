@@ -29,3 +29,9 @@ npm start
 ```
 
 Now navigate to [http://localhost:1234/](http://localhost:1234/) to see your site running.
+
+TODO:
+Split threejs interop code into separate repository and publish:
+Example Published Lib: https://github.com/dcascaval/scala-threejs-facades/tree/master
+Publish Steps:
+https://www.awwsmm.com/blog/publish-your-scala-sbt-project-to-maven-in-5-minutes-with-sonatype

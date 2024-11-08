@@ -16,7 +16,7 @@ lazy val threetyrz =
       ),
       testFrameworks += new TestFramework("munit.Framework"),
       scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
-      scalafixOnCompile := true,
+      // scalafixOnCompile := true,
       semanticdbEnabled := true,
       semanticdbVersion := scalafixSemanticdb.revision,
       autoAPIMappings   := true
