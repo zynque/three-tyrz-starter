@@ -39,16 +39,34 @@ class BoxGeometry(width: Double, height: Double, depth: Double)
     extends js.Object
 
 @js.native
-@JSImport("three", "MeshBasicMaterial")
-class MeshBasicMaterial(parameters: js.Object) extends js.Object
+@JSImport("three", "MeshStandardMaterial")
+class MeshStandardMaterial(parameters: js.Object) extends js.Object
 
-case class MeshBasicMaterialParameters(color: Int)
+case class MeshStandardMaterialParameters(color: Int)
 
-object MeshBasicMaterial {
-  def withParams(params: MeshBasicMaterialParameters): MeshBasicMaterial =
-    new MeshBasicMaterial(js.Dynamic.literal(color = params.color))
+object MeshStandardMaterial {
+  def withParams(params: MeshStandardMaterialParameters): MeshStandardMaterial =
+    new MeshStandardMaterial(js.Dynamic.literal(color = params.color))
 }
 
 @js.native
 @JSImport("three", "Mesh")
-class Mesh(geometry: js.Object, material: js.Object) extends js.Object
+class Mesh(geometry: js.Object, material: js.Object) extends js.Object {
+  val rotation: EulerAngle = js.native
+}
+
+// TODO: Split into multiple files
+
+@js.native
+@JSImport("three", "Euler")
+class EulerAngle(var x: Double, var y: Double, var z: Double) extends js.Object
+
+@js.native
+@JSImport("three", "PointLight")
+class PointLight(color: Int, intensity: Double) extends js.Object {
+  val position: Vector3 = js.native
+}
+
+@js.native
+@JSImport("three", "AmbientLight")
+class AmbientLight(color: Int, intensity: Double) extends js.Object

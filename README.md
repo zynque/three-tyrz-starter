@@ -35,3 +35,5 @@ Split threejs interop code into separate repository and publish:
 Example Published Lib: https://github.com/dcascaval/scala-threejs-facades/tree/master
 Publish Steps:
 https://www.awwsmm.com/blog/publish-your-scala-sbt-project-to-maven-in-5-minutes-with-sonatype
+
+Once interop code is split, we can re-enable scalafix and tpolecat settings
