@@ -23,12 +23,27 @@ sbt test
 sbt fastLinkJS
 ```
 
-* Package the javascript and start a build server:
+* OR - Let sbt watch files
+During active development, this will automatically compile changes incrementally
 ```sh
-npm start
+sbt ~fastLinkJS
+```
+
+* Package the javascript and start a build server:
+You can leave this running along with sbt watching files for changes
+```sh
+npm run start
 ```
 
 Now navigate to [http://localhost:1234/](http://localhost:1234/) to see your site running.
+
+* OR - Package for production:
+
+Update applauncher.js: 'threetyrz-fastopt' => 'threetyrz-opt'
+```sh
+sbt fullLinkJS
+npm run build
+```
 
 TODO:
 Split threejs interop code into separate repository and publish:

@@ -1,9 +1,11 @@
 {
   "scripts": {
     "start": "parcel index.html --no-cache --dist-dir dist --log-level info",
-    "build": "parcel build index.html --dist-dir dist --log-level info"
+    "build": "parcel build index.html --dist-dir dist --log-level info",
+    "analyze": "parcel build index.html --reporter @parcel/reporter-bundle-analyzer"
   },
   "devDependencies": {
+    "@parcel/reporter-bundle-analyzer": "^2.13.0",
     "parcel": "^2.1.0"
   },
   "dependencies": {

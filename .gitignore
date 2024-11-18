@@ -5,3 +5,4 @@ project/project/
 project/metals.sbt
 node_modules/
 dist/
+parcel-bundle-reports/
