@@ -1,4 +1,4 @@
-package com.fractaltreehouse.threetyrz
+package com.fractaltreehouse.threetyrz.components
 
 import tyrian.*
 import zio.*

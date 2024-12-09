@@ -1,8 +1,13 @@
-package com.fractaltreehouse.threetyrz
+package com.fractaltreehouse.threetyrz.examplecompositions
 
 import com.fractaltreehouse.threejs.interop.*
 import zio.*
+import com.fractaltreehouse.threetyrz.components.threejs.*
 
+enum RotationDirection:
+  case Left
+  case Right
+  
 case class SpinningCubeElements(
     camera: PerspectiveCamera,
     cube: Mesh,

@@ -1,4 +1,4 @@
-package com.fractaltreehouse.threetyrz
+package com.fractaltreehouse.threetyrz.components.threejs
 
 import zio.*
 import com.fractaltreehouse.threejs.interop.*

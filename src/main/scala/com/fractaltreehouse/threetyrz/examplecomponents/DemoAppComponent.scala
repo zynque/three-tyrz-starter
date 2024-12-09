@@ -1,17 +1,17 @@
-package com.fractaltreehouse.threetyrz
+package com.fractaltreehouse.threetyrz.examplecomponents
 
 import tyrian.*
 import tyrian.Html.*
 import zio.*
+import com.fractaltreehouse.threetyrz.components.*
+import com.fractaltreehouse.threetyrz.components.threejs.*
+import com.fractaltreehouse.threetyrz.examplecompositions.*
+
 
 enum AppMsg[+T]:
   case SwitchDirection
   case NoOp
   case ChildMessage(msg: T)
-
-enum RotationDirection:
-  case Left
-  case Right
 
 class DemoAppComponent
     extends ZIOTyrianComponent[
@@ -50,6 +50,6 @@ class DemoAppComponent
   ): Html[AppMsg[ThreeJSDivMsg[RotationDirection, SpinningCubeElements] | UnexpectedError]] =
     div(
       button(onClick(AppMsg.SwitchDirection))("Toggle Direction"),
-      div("Current Direction: " + state.toString),
+      div("Current Direction: " + state.model.toString),
       threeDemo.view(state).map(AppMsg.ChildMessage(_))
     )
