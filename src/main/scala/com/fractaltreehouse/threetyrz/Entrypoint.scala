@@ -6,4 +6,4 @@ import com.fractaltreehouse.threetyrz.components.*
 import examplecomponents.*
 
 @JSExportTopLevel("ThreeTyrz")
-object ThreeTyrz extends TyrianZIOComponentApp(DemoAppComponent(), AppMsg.NoOp)
+object ThreeTyrz extends TyrianZIOComponentApp(SideBySide.component)
