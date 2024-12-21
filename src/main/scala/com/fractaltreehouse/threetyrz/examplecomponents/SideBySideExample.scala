@@ -13,3 +13,10 @@ object SideBySideExample:
       CounterButton.Component("Increment B"),
       (a, b) => div(a.map(Left(_)), b.map(Right(_)))
     )
+
+object SideBySideExample2:
+  val component =
+    CounterButton2.Component("Inc A").pairWith(
+      CounterButton2.Component("Inc B"),
+      (a, b) => div(a.map(Left(_)), b.map(Right(_)))
+    )

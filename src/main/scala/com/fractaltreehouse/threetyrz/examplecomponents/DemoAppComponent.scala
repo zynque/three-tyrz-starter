@@ -15,15 +15,13 @@ enum AppMsg[+T]:
 
 class DemoAppComponent
     extends ZIOTyrianComponent[
-      Unit,
-      Nothing,
       ThreeJSDivComponentState[RotationDirection, SpinningCubeElements],
       AppMsg[ThreeJSDivMsg[RotationDirection, SpinningCubeElements] | UnexpectedError]
     ]:
   val threeDemo = new ThreeJSDivComponent(600, 600, SpinningCubeComposition)
 
-  def init(i: Unit) =
-    val (state, cmd) = threeDemo.init(i)
+  def init() =
+    val (state, cmd) = threeDemo.init()
     (state, cmd.map(AppMsg.ChildMessage(_)))
   def update(
       state: ThreeJSDivComponentState[RotationDirection, SpinningCubeElements],

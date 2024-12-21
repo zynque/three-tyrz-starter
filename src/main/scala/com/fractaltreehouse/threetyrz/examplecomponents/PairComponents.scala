@@ -7,18 +7,16 @@ import com.fractaltreehouse.threetyrz.components.*
 import com.fractaltreehouse.threetyrz.examplecompositions.*
 
 class PairComponents[AState, BState, AMsg, BMsg](
-    componentA: ZIOTyrianComponent[Unit, Nothing, AState, AMsg],
-    componentB: ZIOTyrianComponent[Unit, Nothing, BState, BMsg],
+    componentA: ZIOTyrianComponent[AState, AMsg],
+    componentB: ZIOTyrianComponent[BState, BMsg],
     combine: (Html[AMsg], Html[BMsg]) => Html[Either[AMsg, BMsg]]
 ) extends ZIOTyrianComponent[
-      Unit,
-      Nothing,
       (AState, BState),
       Either[AMsg, BMsg]
     ]:
-  def init(i: Unit) =
-    val (aState, aCmd) = componentA.init(i)
-    val (bState, bCmd) = componentB.init(i)
+  def init() =
+    val (aState, aCmd) = componentA.init()
+    val (bState, bCmd) = componentB.init()
     ((aState, bState), aCmd.map(Left(_)) |+| bCmd.map(Right(_)))
 
   def update(

@@ -11,13 +11,12 @@ object Label:
   enum Msg:
     case Updated(text: String)
   
-  class Component(initialState: State)
-      extends ZIOTyrianComponent[Unit, Msg, State, Msg]:
+  class Component(initialText: State)
+      extends SimpleOutComponent[Msg, State]:
 
-    // todo      
-    def init(i: Unit) = (initialState, Cmd.None)
+    def init = (initialText, Cmd.None)
 
-    def update(state: State, message: Msg): (State, Cmd[Task, Msg]) =
+    def updateSimple(state: State, message: Msg): (State, Cmd[Task, Msg]) =
       message match
         case Msg.Updated(text) => (text, Cmd.None)
 

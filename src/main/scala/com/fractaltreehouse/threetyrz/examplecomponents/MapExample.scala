@@ -6,10 +6,6 @@ import zio.*
 import com.fractaltreehouse.threetyrz.components.*
 import com.fractaltreehouse.threetyrz.examplecompositions.*
 
-// object DependencyExample:
-//   val component =
-//     PipeComponents(
-//       CounterButton.Component("Increment A"),
-//       Label.Component("Initialized"),
-//       (a, b) => div(a, b)
-//     )
+object MapExample:
+  val component =
+    CounterButton.Component("Click") //.map()

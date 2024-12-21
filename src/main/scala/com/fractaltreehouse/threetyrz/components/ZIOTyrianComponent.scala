@@ -5,4 +5,4 @@ import tyrian.Html.*
 import cats.effect.kernel.Async
 import zio.*
 
-trait ZIOTyrianComponent[I, O, S, M] extends TyrianComponent[Task, I, O, S, M]
+trait ZIOTyrianComponent[S, M] extends TyrianComponent[Task, S, M]

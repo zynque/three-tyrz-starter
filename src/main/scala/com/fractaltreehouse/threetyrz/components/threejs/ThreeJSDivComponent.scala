@@ -28,8 +28,8 @@ class ThreeJSDivComponent[CompositionModel, CompositionElements <: {def camera: 
     width: Int,
     height: Int,
     composition: ThreeJSComposition[CompositionModel, CompositionElements]
-) extends ZIOTyrianComponent[Unit, Nothing, ThreeJSDivComponentState[CompositionModel, CompositionElements], ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError]:
-  def init(i: Unit): (ThreeJSDivComponentState[CompositionModel, CompositionElements], Cmd[Task, ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError]) =
+) extends ZIOTyrianComponent[ThreeJSDivComponentState[CompositionModel, CompositionElements], ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError]:
+  def init(): (ThreeJSDivComponentState[CompositionModel, CompositionElements], Cmd[Task, ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError]) =
     val initialModel = composition.initialModel
     (ThreeJSDivComponentState(initialModel, None), ZIO.succeed(ThreeJSDivMsg.FindTargetDiv).toCommand)
   def update(
