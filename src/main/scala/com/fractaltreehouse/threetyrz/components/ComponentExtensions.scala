@@ -2,6 +2,7 @@ package com.fractaltreehouse.threetyrz.components
 
 import tyrian.Html
 import tyrian.Cmd
+import scala.sys.Prop
 
 extension [F[_], I, O, M, S](component: TyrianComponent2[F, I, O, M, S]) {
   def mapOutput[O2](f: O => O2): TyrianComponent2[F, I, O2, M, S] = {
@@ -82,6 +83,12 @@ extension [F[_], I, O, M, S](component: TyrianComponent2[F, I, O, M, S]) {
     }
   }
 
+  // does not display component2 - use for downstream components that do stateful data transformations but have no ui
+  def feedInto[O2, M2, S2](
+    component2: TyrianComponent2[F, O, O2, M2, S2]
+    ): TyrianComponent2[F, I, O2, CompositionMsg[O, M, M2], (S, S2)] =
+    feedInto(component2, (h1, h2) => h1.map(Left(_)))
+
   def pairWith[I2, O2, M2, S2](
     component2: TyrianComponent2[F, I2, O2, M2, S2],
     combineUI: (Html[M], Html[M2]) => Html[Either[M, M2]]
@@ -141,4 +148,19 @@ extension [F[_], I, O, M, S](component: TyrianComponent2[F, I, O, M, S]) {
     }
   }
 
+  def propagateState: TyrianComponent2[F, I, S, M, S] = {
+    new TyrianComponent2[F, I, S, M, S] {
+      override val init: (S, Cmd[F, M]) = component.init
+      override def update(state: S, value: Either[I, M]): (S, Cmd[F, Either[S, M]]) = {
+        val (s2, cmd) = component.update(state, value)
+        val cmd2 = cmd.map {
+          case Left(o) => Left(s2)
+          case Right(m) => Right(m)
+        }
+        (s2, cmd2)
+      }
+
+      override def view(state: S): Html[M] = component.view(state)
+    }
+  }
 }

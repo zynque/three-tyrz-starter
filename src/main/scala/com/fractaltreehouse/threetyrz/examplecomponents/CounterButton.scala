@@ -29,13 +29,13 @@ object CounterButton2:
     case Increment
   
   class Component(label: String)
-      extends SimpleOutComponent[Msg, Int]:
+      extends SimpleStatePropagatorComponent[Msg, Int]:
       
-    def init = (0, Cmd.None)
+    def initSimple = 0
 
-    def updateSimple(state: Int, message: Msg): (Int, Cmd[Task, Msg]) =
+    def updateSimple(state: Int, message: Msg): Int =
       message match
-        case Msg.Increment => (state + 1, Cmd.None)
+        case Msg.Increment => state + 1
 
     def view(state: Int): Html[Msg] =
       div(

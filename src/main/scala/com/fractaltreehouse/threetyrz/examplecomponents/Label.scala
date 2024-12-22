@@ -7,18 +7,15 @@ import com.fractaltreehouse.threetyrz.components.*
 
 object Label:
   type State = String
-
-  enum Msg:
-    case Updated(text: String)
+  type Input = String
   
   class Component(initialText: State)
-      extends SimpleOutComponent[Msg, State]:
+      extends SimpleConsumerComponent[Input, State]:
 
-    def init = (initialText, Cmd.None)
+    def initSimple = initialText
 
-    def updateSimple(state: State, message: Msg): (State, Cmd[Task, Msg]) =
-      message match
-        case Msg.Updated(text) => (text, Cmd.None)
+    def updateSimple(state: State, input: Input): State =
+      input
 
-    def view(state: State): Html[Msg] =
+    def view(state: State): Html[Nothing] =
       div(state)
