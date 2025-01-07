@@ -5,8 +5,8 @@ import tyrian.Html.*
 import cats.effect.kernel.Async
 import zio.*
 
-trait TyrianZIOComponentApp2[I, O, M, S](
-  component: TyrianComponent2[Task, I, O, M, S]
+trait TyrianZIOComponentApp[I, O, M, S](
+  component: TyrianComponent[Task, I, O, M, S]
 )(using Async[Task])
   extends TyrianZIOApp[ComponentMessage[I, O, M] | UnexpectedError, S] {
 

@@ -5,7 +5,7 @@ export com.fractaltreehouse.threetyrz.components.extensions.TyrianComponentExten
 
 // F: Effect Type (Cats Effect or ZIO Task)
 // I: Input, O: Output, S: State/Model, M: Message
-trait TyrianComponent2[F[_], I, O, M, S] {
+trait TyrianComponent[F[_], I, O, M, S] {
   def init: (S, Cmd[F, M])
   def update(state: S, value: Either[I, M]): (S, Cmd[F, Either[O, M]])
   def view(state: S): Html[M]

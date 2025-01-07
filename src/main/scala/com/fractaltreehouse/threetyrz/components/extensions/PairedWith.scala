@@ -7,10 +7,10 @@ import tyrian.Cmd
 // Combines two components into one, with the output of the new component being either the output of the first component or the output of the second component
 // For example, multiple text boxes can be combined into a single component that emits the value of the text box that was most recently changed
 class PairedWith[F[_], I, O, M, S, I2, O2, M2, S2](
-    component: TyrianComponent2[F, I, O, M, S],
-    component2: TyrianComponent2[F, I2, O2, M2, S2],
+    component: TyrianComponent[F, I, O, M, S],
+    component2: TyrianComponent[F, I2, O2, M2, S2],
     combineUI: (Html[M], Html[M2]) => Html[Either[M, M2]]
-) extends TyrianComponent2[
+) extends TyrianComponent[
       F,
       Either[I, I2],
       Either[O, O2],

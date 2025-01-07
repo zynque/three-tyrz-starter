@@ -7,8 +7,8 @@ import com.fractaltreehouse.threetyrz.components.*
 import com.fractaltreehouse.threetyrz.examplecompositions.*
 
 def SideBySideExample = {
-  val b1     = CounterButton2.Component("Inc A")
-  val b2     = CounterButton2.Component("Inc B")
+  val b1     = CounterButton.Component("Inc A")
+  val b2     = CounterButton.Component("Inc B")
   val paired = b1.pairWith(b2, (a, b) => div(a.map(Left(_)), b.map(Right(_))))
   val accumulated = paired.eitherAccumulated
   val withTotalAsString = accumulated.mapOutput { case (a, b) =>

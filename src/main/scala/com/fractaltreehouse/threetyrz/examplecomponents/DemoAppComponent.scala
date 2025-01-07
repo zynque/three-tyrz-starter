@@ -22,7 +22,7 @@ enum AppMsg:
   case NoOp
 
 class DirectionSwitcher
-    extends TyrianComponent2[
+    extends TyrianComponent[
       Task,
       Any,
       RotationDirection,

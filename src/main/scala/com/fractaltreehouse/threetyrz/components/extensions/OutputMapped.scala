@@ -6,9 +6,9 @@ import tyrian.Cmd
 
 // Transforms a component into one that outputs a transformed output
 class OutputMapped[F[_], I, O, M, S, O2](
-    component: TyrianComponent2[F, I, O, M, S],
+    component: TyrianComponent[F, I, O, M, S],
     f: O => O2
-) extends TyrianComponent2[F, I, O2, M, S] {
+) extends TyrianComponent[F, I, O2, M, S] {
   override val init: (S, Cmd[F, M]) = component.init
   override def update(
       state: S,

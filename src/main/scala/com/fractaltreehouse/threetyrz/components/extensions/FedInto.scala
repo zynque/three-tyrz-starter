@@ -4,13 +4,18 @@ import com.fractaltreehouse.threetyrz.components.*
 import tyrian.Html
 import tyrian.Cmd
 
+enum CompositionMsg[+O, +M, +M2]:
+    case Out(o: O)
+    case Msg1(m: M)
+    case Msg2(m: M2)
+
 // Feeds the output of one component into the input of another, while maintaining internal state for each
 // For example, a button that emits click events can be fed into a logical counter component, and the result can be fed into a display component
 class FedInto[F[_], I, O, M, S, O2, M2, S2](
-    component: TyrianComponent2[F, I, O, M, S],
-    component2: TyrianComponent2[F, O, O2, M2, S2],
+    component: TyrianComponent[F, I, O, M, S],
+    component2: TyrianComponent[F, O, O2, M2, S2],
     combineUI: (Html[M], Html[M2]) => Html[Either[M, M2]]
-) extends TyrianComponent2[F, I, O2, CompositionMsg[O, M, M2], (S, S2)] {
+) extends TyrianComponent[F, I, O2, CompositionMsg[O, M, M2], (S, S2)] {
   def init: ((S, S2), Cmd[F, CompositionMsg[O, M, M2]]) = {
     val (s1, c1) = component.init
     val (s2, c2) = component2.init

@@ -5,7 +5,7 @@ import tyrian.Html.*
 import zio.*
 import com.fractaltreehouse.threetyrz.components.*
 
-object CounterButton2:
+object CounterButton:
   enum Msg:
     case Increment
   

@@ -3,7 +3,7 @@ package com.fractaltreehouse.threetyrz.components
 import tyrian.*
 import zio.*
 
-trait ProducerComponent[O, S] extends TyrianComponent2[Task, Nothing, S, O, S]:
+trait ProducerComponent[O, S] extends TyrianComponent[Task, Nothing, S, O, S]:
   def updateSimple(state: S): (S, Cmd[Task, O])
   def update(state: S, value: Either[Nothing, O]): (S, Cmd[Task, Either[Nothing, O]]) =
     val (s, c) = value match
@@ -11,7 +11,7 @@ trait ProducerComponent[O, S] extends TyrianComponent2[Task, Nothing, S, O, S]:
       case Left(_) => (state, Cmd.None)
     (s, c.map(Right(_)))
 
-trait SimpleStatePropagatorComponent[M, S] extends TyrianComponent2[Task, Nothing, S, M, S]:
+trait SimpleStatePropagatorComponent[M, S] extends TyrianComponent[Task, Nothing, S, M, S]:
   def initSimple: S
   def updateSimple(state: S, message: M): S
   def init: (S, Cmd[Task, M]) = (initSimple, Cmd.None)
@@ -22,7 +22,7 @@ trait SimpleStatePropagatorComponent[M, S] extends TyrianComponent2[Task, Nothin
         val newState = updateSimple(state, m)
         (newState, Cmd.emit(Left(newState)))
 
-trait SimpleConsumerComponent[I, S] extends TyrianComponent2[Task, I, Nothing, Nothing, S]:
+trait SimpleConsumerComponent[I, S] extends TyrianComponent[Task, I, Nothing, Nothing, S]:
   def initSimple: S
   def updateSimple(state: S, message: I): S
 
