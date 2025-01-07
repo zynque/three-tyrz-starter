@@ -17,7 +17,7 @@ class PairedWith[F[_], I, O, M, S, I2, O2, M2, S2](
       Either[M, M2],
       (S, S2)
     ] {
-  val init: ((S, S2), Cmd[F, Either[M, M2]]) = {
+  def init: ((S, S2), Cmd[F, Either[M, M2]]) = {
     val (s1, c1) = component.init
     val (s2, c2) = component2.init
     val combined = c1.map(Left(_)) |+| c2.map(Right(_))

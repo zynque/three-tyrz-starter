@@ -46,6 +46,7 @@ npm run build
 ```
 
 TODO:
+* rename TyrianComponent2 and convert threejs stuff to use it
 * Split threejs interop code into separate repository and publish:
 Example Published Lib: https://github.com/dcascaval/scala-threejs-facades/tree/master
 Publish Steps:

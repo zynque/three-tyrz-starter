@@ -7,6 +7,7 @@ import org.scalajs.dom
 import com.fractaltreehouse.threejs.interop.*
 import scala.reflect.Selectable.reflectiveSelectable
 import com.fractaltreehouse.threetyrz.components.*
+import com.fractaltreehouse.threetyrz.examplecomponents.AppMsg
 
 enum ThreeJSDivMsg[+CompositionModel, +CompositionElements]:
   case NoOp
@@ -24,46 +25,50 @@ case class ThreeJSDivComponentState[CompositionModel, CompositionElements](
   model: CompositionModel,
   threeJSData: Option[(WebGLRenderer, Scene, CompositionElements)] = None)
 
+// todo: generalize effect?
+// todo: pass messages to composition and let it handle state updates
 class ThreeJSDivComponent[CompositionModel, CompositionElements <: {def camera: PerspectiveCamera}](
     width: Int,
     height: Int,
     composition: ThreeJSComposition[CompositionModel, CompositionElements]
-) extends ZIOTyrianComponent[ThreeJSDivComponentState[CompositionModel, CompositionElements], ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError]:
-  def init(): (ThreeJSDivComponentState[CompositionModel, CompositionElements], Cmd[Task, ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError]) =
+) extends TyrianComponent2[Task, CompositionModel, Nothing, ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError, ThreeJSDivComponentState[CompositionModel, CompositionElements]]:
+  def init: (ThreeJSDivComponentState[CompositionModel, CompositionElements], Cmd[Task, ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError]) =
     val initialModel = composition.initialModel
     (ThreeJSDivComponentState(initialModel, None), ZIO.succeed(ThreeJSDivMsg.FindTargetDiv).toCommand)
   def update(
       state: ThreeJSDivComponentState[CompositionModel, CompositionElements],
-      message: ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError
-  ): (ThreeJSDivComponentState[CompositionModel, CompositionElements], Cmd[Task, ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError]) = message match {
-    case ThreeJSDivMsg.NoOp => (state, Cmd.None)
-    case ThreeJSDivMsg.FindTargetDiv =>
-      (state, findTargetDiv.toCommand)
-    case ThreeJSDivMsg.RetryFindTargetDiv =>
-      (state, ZIO.succeed(ThreeJSDivMsg.FindTargetDiv).delay(10.millis).toCommand)
-    case ThreeJSDivMsg.InitializeScene(div) =>
-      (state, initializeScene(div, width, height, composition).toCommand)
-    case ThreeJSDivMsg.SceneInitialized(renderer, scene, model, elements) =>
+      message: Either[CompositionModel, ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError]
+  ): (ThreeJSDivComponentState[CompositionModel, CompositionElements], Cmd[Task, Either[Nothing, ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError]]) = message match {
+    case Left(model) =>
+      (state.copy(model = model), ZIO.succeed(ThreeJSDivMsg.UpdateComposition).toCommand.map(Right(_)))
+    case Right(ThreeJSDivMsg.FindTargetDiv) =>
+      (state, findTargetDiv.toCommand.map(Right(_)))
+    case Right(ThreeJSDivMsg.RetryFindTargetDiv) =>
+      (state, ZIO.succeed(ThreeJSDivMsg.FindTargetDiv).delay(10.millis).toCommand.map(Right(_)))
+    case Right(ThreeJSDivMsg.InitializeScene(div)) =>
+      (state, initializeScene(div, width, height, composition).toCommand.map(Right(_)))
+    case Right(ThreeJSDivMsg.SceneInitialized(renderer, scene, model, elements)) =>
       val threeJSData = (renderer, scene, elements)
-      (state.copy(model = model, threeJSData = Some(threeJSData)), ZIO.succeed(ThreeJSDivMsg.Render).toCommand)
-    case ThreeJSDivMsg.Render =>
+      (state.copy(model = model, threeJSData = Some(threeJSData)), ZIO.succeed(ThreeJSDivMsg.Render).toCommand.map(Right(_)))
+    case Right(ThreeJSDivMsg.Render) =>
       state.threeJSData match {
-        case None => (state, ZIO.succeed(UnexpectedError("render message recieved with no three.js data available")).toCommand)
+        case None => (state, ZIO.succeed(UnexpectedError("render message recieved with no three.js data available")).toCommand.map(Right(_)))
         case Some((renderer, scene, elements)) =>
-          (state, render(renderer, scene, elements).toCommand)
+          (state, render(renderer, scene, elements).toCommand.map(Right(_)))
       }
-    case ThreeJSDivMsg.UpdateComposition =>
+    case Right(ThreeJSDivMsg.UpdateComposition) =>
       state.threeJSData match {
-        case None => (state, ZIO.succeed(UnexpectedError("update composition message recieved with no three.js data available")).toCommand)
+        case None => (state, ZIO.succeed(UnexpectedError("update composition message recieved with no three.js data available")).toCommand.map(Right(_)))
         case Some((renderer, scene, elements)) =>
-          (state, updateComposition(composition, scene, state.model, elements).toCommand)
+          (state, updateComposition(composition, scene, state.model, elements).toCommand.map(Right(_)))
       }
-    case ThreeJSDivMsg.Updated(elements) =>
-      (state.copy(threeJSData = state.threeJSData.map{case (renderer, scene, _) => (renderer, scene, elements)}), ZIO.succeed(ThreeJSDivMsg.Render).toCommand)
-    case ThreeJSDivMsg.WaitForNextClockTick =>
-      (state, ZIO.succeed(ThreeJSDivMsg.UpdateComposition).delay(10.millis).toCommand)
-    case UnexpectedError(msg) =>
-      (state, ZIO.attempt{println("error: " + msg); ThreeJSDivMsg.NoOp}.toCommand)
+    case Right(ThreeJSDivMsg.Updated(elements)) =>
+      (state.copy(threeJSData = state.threeJSData.map{case (renderer, scene, _) => (renderer, scene, elements)}), ZIO.succeed(ThreeJSDivMsg.Render).toCommand.map(Right(_)))
+    case Right(ThreeJSDivMsg.WaitForNextClockTick) =>
+      (state, ZIO.succeed(ThreeJSDivMsg.UpdateComposition).delay(10.millis).toCommand.map(Right(_)))
+    case Right(UnexpectedError(msg)) =>
+      (state, ZIO.attempt{println("error: " + msg); ThreeJSDivMsg.NoOp}.toCommand.map(Right(_)))
+    case _ => (state, Cmd.None)
   }
 
   def view(state: ThreeJSDivComponentState[CompositionModel, CompositionElements]): Html[Nothing] =
