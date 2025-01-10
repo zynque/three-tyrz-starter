@@ -1,4 +1,4 @@
-package com.fractaltreehouse.threetyrz.components.extensions
+package com.fractaltreehouse.threetyrz.components.data
 
 enum CompositionMsg[+O, +M, +M2]:
   case Out(o: O)

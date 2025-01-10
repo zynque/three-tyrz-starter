@@ -1,18 +1,13 @@
 package com.fractaltreehouse.threetyrz.components
 
 import tyrian.*
+import data.DataComponent
+import view.ViewComponent
 export com.fractaltreehouse.threetyrz.components.extensions.TyrianComponentExtensions.*
 
 // F: Effect Type (Cats Effect or ZIO Task)
 // I: Input, O: Output, S: State/Model, M: Message
 trait TyrianComponent[F[_], I, O, M, S] extends DataComponent[F, I, O, M, S] with ViewComponent[M, S]
-
-trait ViewComponent[M, S]:
-  def view(state: S): Html[M]
-
-trait DataComponent[F[_], I, O, M, S]:
-  def init: (S, Cmd[F, M])
-  def update(state: S, value: Either[I, M]): (S, Cmd[F, Either[O, M]])
 
 // todo: read and re-read this: https://dev.to/dwayne/stateless-and-stateful-components-no-reusable-views-in-elm-2kg0
 //       compare with what we're trying to do here

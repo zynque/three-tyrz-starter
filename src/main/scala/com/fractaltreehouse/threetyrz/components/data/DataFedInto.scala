@@ -1,7 +1,8 @@
-package com.fractaltreehouse.threetyrz.components.extensions
+package com.fractaltreehouse.threetyrz.components.data
 
 import com.fractaltreehouse.threetyrz.components.*
 import tyrian.*
+import com.fractaltreehouse.threetyrz.components.data.CompositionMsg
 
 // Feeds the output of one component into the input of another, while maintaining internal state for each
 // For example, a button that emits click events can be fed into a logical counter component, and the result can be fed into a display component

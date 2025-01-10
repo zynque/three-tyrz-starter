@@ -1,13 +1,13 @@
-package com.fractaltreehouse.threetyrz.components.extensions
+package com.fractaltreehouse.threetyrz.components.data
 
 import com.fractaltreehouse.threetyrz.components.*
 import tyrian.*
 
 // Transforms a component into one that outputs a transformed output
 class OutputMapped[F[_], I, O, M, S, O2](
-    component: TyrianComponent[F, I, O, M, S],
+    component: DataComponent[F, I, O, M, S],
     f: O => O2
-) extends TyrianComponent[F, I, O2, M, S] {
+) extends DataComponent[F, I, O2, M, S] {
   override val init: (S, Cmd[F, M]) = component.init
   override def update(
       state: S,
@@ -19,5 +19,4 @@ class OutputMapped[F[_], I, O, M, S, O2](
       transformed = outOrMsg.left.map(f)
     } yield transformed
     (state2, output2)
-  override def view(state: S): Html[M] = component.view(state)
 }

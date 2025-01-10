@@ -1,4 +1,4 @@
-package com.fractaltreehouse.threetyrz.components.extensions
+package com.fractaltreehouse.threetyrz.components.view
 
 import com.fractaltreehouse.threetyrz.components.*
 import tyrian.*

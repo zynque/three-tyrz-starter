@@ -1,4 +1,4 @@
-package com.fractaltreehouse.threetyrz.components.extensions
+package com.fractaltreehouse.threetyrz.components.data
 
 import com.fractaltreehouse.threetyrz.components.*
 import tyrian.Html
@@ -7,10 +7,9 @@ import tyrian.Cmd
 // Combines two components into one, with the output of the new component being either the output of the first component or the output of the second component
 // For example, multiple text boxes can be combined into a single component that emits the value of the text box that was most recently changed
 class PairedWith[F[_], I, O, M, S, I2, O2, M2, S2](
-    component: TyrianComponent[F, I, O, M, S],
-    component2: TyrianComponent[F, I2, O2, M2, S2],
-    combineUI: (Html[M], Html[M2]) => Html[Either[M, M2]]
-) extends TyrianComponent[
+    component: DataComponent[F, I, O, M, S],
+    component2: DataComponent[F, I2, O2, M2, S2]
+) extends DataComponent[
       F,
       Either[I, I2],
       Either[O, O2],
@@ -58,11 +57,5 @@ class PairedWith[F[_], I, O, M, S, I2, O2, M2, S2](
         }
         ((s, s2b), cmd2b)
     }
-  }
-  def view(state: (S, S2)): Html[Either[M, M2]] = {
-    val (s, s2) = state
-    val h1      = component.view(s)
-    val h2      = component2.view(s2)
-    combineUI(h1, h2)
   }
 }
