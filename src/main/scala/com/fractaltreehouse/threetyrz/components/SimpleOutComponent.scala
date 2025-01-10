@@ -3,13 +3,14 @@ package com.fractaltreehouse.threetyrz.components
 import tyrian.*
 import zio.*
 
-trait ProducerComponent[O, S] extends TyrianComponent[Task, Nothing, S, O, S]:
-  def updateSimple(state: S): (S, Cmd[Task, O])
-  def update(state: S, value: Either[Nothing, O]): (S, Cmd[Task, Either[Nothing, O]]) =
-    val (s, c) = value match
-      case Right(_) => updateSimple(state)
-      case Left(_) => (state, Cmd.None)
-    (s, c.map(Right(_)))
+// todo: generalize effect
+
+trait ProducerComponent[O] extends TyrianComponent[Task, Nothing, O, O, Unit]:
+  def init: (Unit, Cmd[Task, O]) = ((), Cmd.None)
+  def update(state: Unit, value: Either[Nothing, O]): (Unit, Cmd[Task, Either[O, O]]) =
+    value match
+      case Right(msg) => (state, Cmd.emit(Left(msg)))
+      case _ => (state, Cmd.None)
 
 trait SimpleStatePropagatorComponent[M, S] extends TyrianComponent[Task, Nothing, S, M, S]:
   def initSimple: S

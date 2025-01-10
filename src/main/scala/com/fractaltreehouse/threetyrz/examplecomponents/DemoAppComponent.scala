@@ -10,6 +10,9 @@ import com.fractaltreehouse.threetyrz.examplecompositions.*
 def DemoAppComponent = SpinningCubeDemoApp.pairWith(
   SideBySideExample,
   (h1, h2) => div(h1.map(Left(_)), h2.map(Right(_)))
+).pairWith(
+  ToggleExample,
+  (h1, h2) => div(h1.map(Left(_)), h2.map(Right(_)))
 )
 
 def SpinningCubeDemoApp = DirectionSwitcher().feedInto(

@@ -8,10 +8,10 @@ import com.fractaltreehouse.threetyrz.components.*
 object CounterButton:
   enum Msg:
     case Increment
-  
+
   class Component(label: String)
       extends SimpleStatePropagatorComponent[Msg, Int]:
-      
+
     def initSimple = 0
 
     def updateSimple(state: Int, message: Msg): Int =
@@ -23,3 +23,11 @@ object CounterButton:
         button(onClick(Msg.Increment))(label),
         div(state.toString)
       )
+
+object ButtonComponent:
+  enum Msg:
+    case Clicked
+
+  class Component(label: String) extends ProducerComponent[Msg]:
+    def view(state: Unit): Html[Msg] =
+      button(onClick(Msg.Clicked))(label)
