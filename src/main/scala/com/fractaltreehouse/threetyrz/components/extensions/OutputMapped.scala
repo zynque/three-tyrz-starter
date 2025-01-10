@@ -1,8 +1,7 @@
 package com.fractaltreehouse.threetyrz.components.extensions
 
 import com.fractaltreehouse.threetyrz.components.*
-import tyrian.Html
-import tyrian.Cmd
+import tyrian.*
 
 // Transforms a component into one that outputs a transformed output
 class OutputMapped[F[_], I, O, M, S, O2](

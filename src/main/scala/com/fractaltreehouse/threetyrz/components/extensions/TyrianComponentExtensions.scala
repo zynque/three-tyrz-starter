@@ -11,11 +11,10 @@ object TyrianComponentExtensions {
     ): TyrianComponent[F, I, O2, CompositionMsg[O, M, M2], (S, S2)] =
       new FedInto[F, I, O, M, S, O2, M2, S2](component, component2, combineUI)
 
-    // does not display component2 - use for downstream components that do stateful data transformations but have no ui
     def feedInto[O2, M2, S2](
-        component2: TyrianComponent[F, O, O2, M2, S2]
+        component2: DataComponent[F, O, O2, M2, S2]
     ): TyrianComponent[F, I, O2, CompositionMsg[O, M, M2], (S, S2)] =
-      feedInto(component2, (h1, h2) => h1.map(Left(_)))
+      new FedIntoDataComponent[F, I, O, M, S, O2, M2, S2](component, component2)
 
     def mapOutput[O2](f: O => O2): TyrianComponent[F, I, O2, M, S] =
       new OutputMapped[F, I, O, M, S, O2](component, f)
