@@ -2,6 +2,7 @@ package com.fractaltreehouse.threetyrz.components.view
 
 import com.fractaltreehouse.threetyrz.components.*
 import tyrian.*
+export ViewComponentExtensions.*
 
 object ViewComponentExtensions {
   extension [M, S](component: ViewComponent[M, S]) {

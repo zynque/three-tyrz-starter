@@ -1,9 +1,9 @@
 package com.fractaltreehouse.threetyrz.components.extensions
 
 import com.fractaltreehouse.threetyrz.components.*
-import tyrian.*
 import com.fractaltreehouse.threetyrz.components.data.CompositionMsg
 import com.fractaltreehouse.threetyrz.components.data.DataFedInto
+import tyrian.*
 
 class FedInto[F[_], I, O, M, S, O2, M2, S2](
     component: TyrianComponent[F, I, O, M, S],

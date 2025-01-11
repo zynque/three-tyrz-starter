@@ -1,8 +1,7 @@
 package com.fractaltreehouse.threetyrz.components.data
 
 import com.fractaltreehouse.threetyrz.components.*
-import tyrian.Html
-import tyrian.Cmd
+import tyrian.*
 
 // Combines two components into one, with the output of the new component being either the output of the first component or the output of the second component
 // For example, multiple text boxes can be combined into a single component that emits the value of the text box that was most recently changed

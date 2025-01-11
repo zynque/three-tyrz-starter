@@ -4,6 +4,7 @@ import tyrian.*
 import zio.*
 
 // todo: generalize effect
+// todo: move
 
 trait ProducerComponent[O] extends TyrianComponent[Task, Nothing, O, O, Unit]:
   def init: (Unit, Cmd[Task, O]) = ((), Cmd.None)

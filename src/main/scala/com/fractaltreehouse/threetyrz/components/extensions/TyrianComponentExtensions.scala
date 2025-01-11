@@ -1,13 +1,10 @@
 package com.fractaltreehouse.threetyrz.components.extensions
 
 import com.fractaltreehouse.threetyrz.components.*
+import com.fractaltreehouse.threetyrz.components.data.*
 import tyrian.*
-import com.fractaltreehouse.threetyrz.components.data.DataComponentExtensions.withView
-import com.fractaltreehouse.threetyrz.components.data.CompositionMsg
-import com.fractaltreehouse.threetyrz.components.data.EitherAccumulator
-import com.fractaltreehouse.threetyrz.components.data.OutputMapped
-import com.fractaltreehouse.threetyrz.components.data.PairedWith
-import com.fractaltreehouse.threetyrz.components.data.DataComponent
+export TyrianComponentExtensions.*
+
 
 object TyrianComponentExtensions {
   extension [F[_], I, O, M, S](component: TyrianComponent[F, I, O, M, S]) {
@@ -38,7 +35,7 @@ object TyrianComponentExtensions {
       ).withView((s, s2) => combineUI(component.view(s), component2.view(s2)))
 
     def propagateState: TyrianComponent[F, I, S, M, S] =
-      new StatePropagated[F, I, O, M, S](component)
+      new StatePropagated[F, I, O, M, S](component).withView(component.view)
   }
 
   extension [F[_], I, OA, OB, M, S](component: TyrianComponent[F, I, Either[OA, OB], M, S]) {

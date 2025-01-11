@@ -1,13 +1,14 @@
 package com.fractaltreehouse.threetyrz.components.threejs
 
+import com.fractaltreehouse.threejs.interop.*
+import com.fractaltreehouse.threetyrz.components.*
+import com.fractaltreehouse.threetyrz.examplecomponents.AppMsg
+import org.scalajs.dom
 import tyrian.*
 import tyrian.Html.*
 import zio.*
-import org.scalajs.dom
-import com.fractaltreehouse.threejs.interop.*
+
 import scala.reflect.Selectable.reflectiveSelectable
-import com.fractaltreehouse.threetyrz.components.*
-import com.fractaltreehouse.threetyrz.examplecomponents.AppMsg
 
 enum ThreeJSDivMsg[+CompositionModel, +CompositionElements]:
   case NoOp

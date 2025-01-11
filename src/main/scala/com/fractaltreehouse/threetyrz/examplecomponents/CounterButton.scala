@@ -1,9 +1,9 @@
 package com.fractaltreehouse.threetyrz.examplecomponents
 
+import com.fractaltreehouse.threetyrz.components.*
 import tyrian.*
 import tyrian.Html.*
 import zio.*
-import com.fractaltreehouse.threetyrz.components.*
 
 object CounterButton:
   enum Msg:

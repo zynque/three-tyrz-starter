@@ -1,8 +1,8 @@
 package com.fractaltreehouse.threetyrz.components.data
 
+import com.fractaltreehouse.threetyrz.components.*
 import tyrian.*
 import tyrian.Html.*
-import com.fractaltreehouse.threetyrz.components.*
 
 // consumes either A or B, and stores the most recent value of each, or None if no value has been received
 class EitherAccumulator[F[_], A, B]
