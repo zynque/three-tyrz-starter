@@ -8,7 +8,9 @@ enum SwitcherSelection:
     case One
     case Two
 
-case class SwitcherState[S1, S2](selection: SwitcherSelection, state1: S1, state2: S2)
+case class SwitcherState[S1, S2](selected: SwitcherSelection, state1: S1, state2: S2)
+
+// class Switch extends TyrianComponent[F, Int, ]
 
 // switches between two components based on signal from a third
 // class Switcher[F[_], I, O, MC, MS, M1, S1, M2, S2](
