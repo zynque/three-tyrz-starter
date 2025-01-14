@@ -5,6 +5,7 @@ import tyrian.Html.*
 import zio.*
 import com.fractaltreehouse.threetyrz.components.*
 import com.fractaltreehouse.threetyrz.examplecompositions.*
+// import com.fractaltreehouse.threetyrz.components.extensions.TyrianComponentExtensions.contramapInput
 
 def SideBySideExample = {
   val b1     = CounterButton.Component("Inc A")
@@ -68,9 +69,20 @@ def ToggleExample = {
     }
   val toggle = Toggle()
 
-  selector.feedInto(toggle, (a, b) => div(a.map(Left(_)), b.map(Right(_))))
+  val label = Label.Component("Selected...").contramapInput((b: Boolean) => b match {
+    case true  => "A Selected"
+    case false => "B Selected"
+  })
 
-  // todo: need to be able to split output?
+  val toggleAndLabel = toggle.pairWith(label, (a, b) => div(a.map(Left(_)), b.map(Right(_))))
+
+  selector.duplicate.feedInto(
+    toggleAndLabel,
+    (a, b) => div(a.map(Left(_)), b.map(Right(_)))
+  )
+}
+
+def ListExample = {
 
 }
 
@@ -80,4 +92,3 @@ def DynamicSubcomponentCreationExample = {
 
 }
 
-def ListExample = {}
