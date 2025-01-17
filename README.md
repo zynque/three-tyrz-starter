@@ -46,8 +46,9 @@ npm run build
 ```
 
 TODO:
+* Figure out best way to handle animation loop(s) between three.js and tyrian components
 * Move tyrian component library outside of threetyrz package
-* Try examples where new components are created as a result of ui interaction
+* Split component library into separate repository and publish
 * Split threejs interop code into separate repository and publish:
 Example Published Lib: https://github.com/dcascaval/scala-threejs-facades/tree/master
 Publish Steps:

@@ -5,6 +5,7 @@ import tyrian.*
 import tyrian.Html.*
 
 // consumes either A or B, and stores the most recent value of each, or None if no value has been received
+// Useful for example when creating a form with multiple fields, and you want to store the most recent value of each field
 class EitherAccumulator[F[_], A, B]
     extends DataComponent[
       F,

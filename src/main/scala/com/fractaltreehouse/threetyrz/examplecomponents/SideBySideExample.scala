@@ -5,7 +5,8 @@ import tyrian.Html.*
 import zio.*
 import com.fractaltreehouse.threetyrz.components.*
 import com.fractaltreehouse.threetyrz.examplecompositions.*
-// import com.fractaltreehouse.threetyrz.components.extensions.TyrianComponentExtensions.contramapInput
+import com.fractaltreehouse.threetyrz.components.extensions.contramapInput
+import com.fractaltreehouse.threetyrz.components.extensions.duplicate
 
 def SideBySideExample = {
   val b1     = CounterButton.Component("Inc A")
@@ -22,6 +23,7 @@ def SideBySideExample = {
   )
 }
 
+// todo: generalize
 // When input == true, displays first counter, when input == false, displays second counter
 class Toggle
     extends TyrianComponent[
@@ -82,7 +84,11 @@ def ToggleExample = {
   )
 }
 
-def ListExample = {
+def HeterogeneousListExample = {
+  
+}
+
+def HomogeneousListExample = {
 
 }
 
@@ -92,3 +98,6 @@ def DynamicSubcomponentCreationExample = {
 
 }
 
+def ExternalStreamExample = {
+  // we want to be able to subscribe to an external stream of data and display it
+}

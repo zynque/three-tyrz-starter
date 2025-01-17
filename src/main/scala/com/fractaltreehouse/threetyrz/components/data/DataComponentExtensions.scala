@@ -10,7 +10,13 @@ object DataComponentExtensions {
         view: S => Html[M]
     ): TyrianComponent[F, I, O, M, S] =
       new DataComponentWithView(component, view)
+  }
+}
 
+// these names conflict with TyrianComponentExtensions
+// so we require them to be imported explicitly
+object DataOnlyExtensions {
+  extension [F[_], I, O, M, S](component: DataComponent[F, I, O, M, S]) {
     def feedInto[O2, M2, S2](
         component2: DataComponent[F, O, O2, M2, S2]
     ): DataComponent[F, I, O2, CompositionMsg[O, M, M2], (S, S2)] =

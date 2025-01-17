@@ -4,7 +4,7 @@ import com.fractaltreehouse.threetyrz.components.*
 import com.fractaltreehouse.threetyrz.components.data.CompositionMsg
 import tyrian.*
 
-// Feeds the output of one component into the input of another, while maintaining internal state for each
+// A component that feeds the output of one component into the input of another, while maintaining internal state for each
 // For example, a button that emits click events can be fed into a logical counter component, and the result can be fed into a display component
 class DataFedInto[F[_], I, O, M, S, O2, M2, S2](
     component: DataComponent[F, I, O, M, S],
