@@ -6,14 +6,8 @@ import zio.*
 import com.fractaltreehouse.threetyrz.components.*
 import com.fractaltreehouse.threetyrz.components.threejs.*
 import com.fractaltreehouse.threetyrz.examplecompositions.*
-
-def DemoAppComponent = SpinningCubeDemoApp.pairWith(
-  SideBySideExample,
-  (h1, h2) => div(h1.map(Left(_)), h2.map(Right(_)))
-).pairWith(
-  ToggleExample,
-  (h1, h2) => div(h1.map(Left(_)), h2.map(Right(_)))
-)
+import org.zynque.tyriancombinators.elements.*
+import org.zynque.tyriancombinators.extensions.*
 
 def SpinningCubeDemoApp = DirectionSwitcher().feedInto(
   ThreeJSDivComponent(600, 600, SpinningCubeComposition),
@@ -25,7 +19,7 @@ enum AppMsg:
   case NoOp
 
 class DirectionSwitcher
-    extends TyrianComponent[
+    extends TyrianElement[
       Task,
       Any,
       RotationDirection,

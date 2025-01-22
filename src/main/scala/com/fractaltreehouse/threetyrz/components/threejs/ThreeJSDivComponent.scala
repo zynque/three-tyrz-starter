@@ -7,6 +7,7 @@ import org.scalajs.dom
 import tyrian.*
 import tyrian.Html.*
 import zio.*
+import org.zynque.tyriancombinators.elements.*
 
 import scala.reflect.Selectable.reflectiveSelectable
 
@@ -32,7 +33,7 @@ class ThreeJSDivComponent[CompositionModel, CompositionElements <: {def camera: 
     width: Int,
     height: Int,
     composition: ThreeJSComposition[CompositionModel, CompositionElements]
-) extends TyrianComponent[Task, CompositionModel, Nothing, ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError, ThreeJSDivComponentState[CompositionModel, CompositionElements]]:
+) extends TyrianElement[Task, CompositionModel, Nothing, ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError, ThreeJSDivComponentState[CompositionModel, CompositionElements]]:
   def init: (ThreeJSDivComponentState[CompositionModel, CompositionElements], Cmd[Task, ThreeJSDivMsg[CompositionModel, CompositionElements] | UnexpectedError]) =
     val initialModel = composition.initialModel
     (ThreeJSDivComponentState(initialModel, None), ZIO.succeed(ThreeJSDivMsg.FindTargetDiv).toCommand)

@@ -46,6 +46,8 @@ npm run build
 ```
 
 TODO:
+* Gamepad Api
+* Web Audio Api
 * Figure out best way to handle animation loop(s) between three.js and tyrian components
 * Move tyrian component library outside of threetyrz package
 * Split component library into separate repository and publish
